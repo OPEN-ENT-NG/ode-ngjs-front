@@ -18,12 +18,12 @@
     "dist/**/*"
   ],
   "scripts": {
-    "build": "npx webpack",
+    "build": "NODE_OPTIONS=--openssl-legacy-provider npx webpack",
     "compile": "npx tsc --build ./tsconfig.json",
     "jasmine": "npx jasmine --config=src/test/config/jasmine.json",
     "karma": "npx karma start src/test/config/karma.js",
     "test": "npm run compile && npm run jasmine",
-    "watch": "npx webpack --config webpack.config.watch.js --env build_target=${npm_config_watch_springboard}/assets/js/ode-ngjs-front --watch"
+    "watch": "NODE_OPTIONS=--openssl-legacy-provider npx webpack --config webpack.config.watch.js --env build_target=${npm_config_watch_springboard}/assets/js/ode-ngjs-front --watch"
   },
   "dependencies": {
     "chart.js": "4.4.9",

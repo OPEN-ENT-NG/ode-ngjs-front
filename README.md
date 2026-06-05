@@ -15,3 +15,6 @@ Written in typescript, it provides features and components to build and run Edif
 - widgets management,
 - more to come
 
+
+
+Ce dépôt est un miroir officiel du dépôt Edifice : https://github.com/edificeio/ode-ngjs-front

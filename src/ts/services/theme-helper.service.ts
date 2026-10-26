@@ -32,7 +32,8 @@ export class ThemeHelperService {
         "edumalin-widget":      "ic-widget-edumalin",
         "mediacentre-widget":   "ic-widget-mediacentre",
         "cantine-widget":       "ic-widget-cantine",
-        "screen-time-widget":   "ic-widget-screen-time"
+        "screen-time-widget":   "ic-widget-screen-time",
+        "allo-region-widget":    "ic-star"         // FIXME obviously wrong => create missing icon in CSS
     }
 
     constructor( 

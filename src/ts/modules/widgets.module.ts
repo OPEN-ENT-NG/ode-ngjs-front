@@ -18,6 +18,7 @@ import Edumalin = require("../widgets/edumalin-widget/edumalin-widget.widget");
 import Mediacentre = require("../widgets/mediacentre-widget/mediacentre-widget.widget");
 import Cantine = require("../widgets/cantine-widget/cantine-widget.widget");
 import ScreenTime= require("../widgets/screen-time-widget/screen-time-widget.widget");
+import AlloRegion = require("../widgets/allo-region-widget/allo-region-widget.widget");
 
 
 // ============ /!\ IMPORTANT /!\ ============
@@ -60,7 +61,8 @@ export enum KnownWidget {
     edumalin        = "edumalin-widget",
     mediacentre     = "mediacentre-widget",
     cantine         = "cantine-widget",
-    screenTime      = "screen-time-widget"
+    screenTime      = "screen-time-widget",
+    alloRegion      = "allo-region-widget"
 
 };
 export type WidgetLoader = (widgetName:String)=>Promise<void>;
@@ -91,6 +93,7 @@ const module = angular.module("odeWidgets", [])
             case KnownWidget.mediacentre: await loadMediacentreWidgetModule().then( mod =>{ $injector.loadNewModules([mod]) }); break;
             case KnownWidget.cantine: await loadCantineWidgetModule().then( mod =>{ $injector.loadNewModules([mod]) }); break;
             case KnownWidget.screenTime: await loadScreenTimeWidgetModule().then( mod =>{ $injector.loadNewModules([mod]) }); break;
+            case KnownWidget.alloRegion: await loadAlloRegionWidgetModule().then( mod =>{ $injector.loadNewModules([mod]) }); break;
             default: throw `Unknown widget "${widgetName}"`;
         }
     };
@@ -456,6 +459,25 @@ function loadMediacentreWidgetModule() {
             );
         });
     }
+
+/** Dynamically load the "allo-region-widget" widget, which is packaged as a separate entry thanks to require.ensure(). */
+function loadAlloRegionWidgetModule() {
+    return new Promise<string>( (resolve, reject) => {
+        // Note: the following "require.ensure" function acts as a compiling directive for webpack, and cannot be variabilized.
+        require.ensure(
+            ["../widgets/allo-region-widget/allo-region-widget.widget"],
+            function(require) {
+                var jsModule = <typeof AlloRegion> require("../widgets/allo-region-widget/allo-region-widget.widget");
+                resolve( jsModule.odeModuleName );
+            },
+            function(error) {
+                console.log(error);
+                reject();
+            },
+            "widgets/allo-region-widget/allo-region-widget.widget"
+        );
+    });
+}
 
 /**
  * The "odeWidgets" angularjs module is a placeholder for widgets directives.
